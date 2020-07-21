@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import android.widget.ProgressBar
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -24,7 +24,6 @@ import com.example.medicalhub.R
 import com.example.medicalhub.adaptor.DashboardRecyclerAdaptor
 import com.example.medicalhub.model.Book
 import com.example.medicalhub.until.ConnectionManager
-import okhttp3.internal.http2.Settings
 import org.json.JSONException
 import kotlin.collections.HashMap
 
@@ -42,7 +41,7 @@ class Fragment_dashboard : Fragment() {
     lateinit var recyclerFragment_dashboard: RecyclerView
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var progressBar: ProgressBar
-    lateinit var progressBarLayout: LinearLayout
+    lateinit var progressBarLayout: RelativeLayout
    var medicalList= arrayListOf<Book>()
     /* val medicalList = arrayListOf<Book>(
     Book("Agwani Medical","Himmaster","9414147250","5.0",R.drawable.hearder_image) ,
@@ -118,11 +117,9 @@ class Fragment_dashboard : Fragment() {
                             Toast.makeText(context, "somthing went wrong", Toast.LENGTH_LONG).show()
                         }
                     }
-                    catch (
-                        e: JSONException
-                    )
+                    catch (e:JSONException)
                     {
-                        Toast.makeText(context,"some unexpected error occurred",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context,"some unexpected error occurred $e ",Toast.LENGTH_LONG).show()
                     }
 
 
@@ -132,10 +129,10 @@ class Fragment_dashboard : Fragment() {
 
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
-                    val Header = HashMap<String, String>()
+                    val headers = HashMap<String, String>()
                     headers["content-type"] = "application/json"
                     headers["token"] = "8f89898d55fa1e"
-                    return Header
+                    return headers
                 }
 
             }

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.DescriptionActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toobar_dsp"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark"
+        android:background="@color/colorPrimary"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/toobar_dsp"
+        >
+        <LinearLayout
+            android:id="@+id/ll_dsp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            android:weightSum="6">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:src="@drawable/hearder_image"
+                android:id="@+id/img_dsp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3.3"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt1_ll_dsp"
+                    android:text="Name of Book"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:padding="8dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt2_ll_dsp"
+                    android:text="Book Author"
+                    android:layout_below="@id/txt1_ll_dsp"
+                    android:padding="5dp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt3_ll_dsp"
+                    android:text="Price"
+                    android:padding="5dp"
+                    android:layout_below="@id/txt2_ll_dsp"
+                    android:textSize="15sp"
+                    android:textStyle="bold"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_rating_dsp"
+                android:layout_weight="1.2"
+                android:textStyle="bold"
+                android:text="@string/rating"
+                android:drawableLeft="@drawable/ic_rating"
+                android:drawablePadding="4dp"
+
+                android:drawableStart="@drawable/ic_rating" />
+
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/RL_dsp"
+            android:layout_below="@id/ll_dsp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtAboutTheBook"
+                android:text="About The Book:"
+                android:layout_centerHorizontal="true"
+                android:textSize="22sp"
+                android:textStyle="italic"
+                android:layout_marginTop="4dp"
+                android:padding="6dp"
+                />
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/txtAboutTheBook"
+                android:layout_marginTop="4dp"
+                >
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_dsp"
+                    android:padding="6dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="normal"
+                    android:textSize="18sp"
+                    android:text="Welcome, this is ankit bajaj present you about bookhub. it is an open online libarary. "
+
+                    />
+
+
+            </ScrollView>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add To Favourite"
+        android:id="@+id/btn_dsp"
+        android:layout_alignParentBottom="true"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:background="@color/colorPrimary"
+
+
+
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:id="@+id/progressBarLayout_dsp"
+        >
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/progressBar_dsp"
+            />
+
+    </RelativeLayout>
+
+</RelativeLayout>

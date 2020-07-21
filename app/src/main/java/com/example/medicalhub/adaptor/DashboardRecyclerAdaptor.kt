@@ -1,23 +1,19 @@
 package com.example.medicalhub.adaptor
 
-import android.accounts.AccountManager.get
 import android.content.Context
-import android.media.CamcorderProfile.get
-import android.nfc.tech.IsoDep.get
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.widget.AppCompatDrawableManager.get
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medicalhub.R
+import com.example.medicalhub.activity.DescriptionActivity
 import com.example.medicalhub.model.Book
+//import com.example.medicalhub.model.Book.bookId
 import com.squareup.picasso.Picasso
-import java.lang.reflect.Array.get
-import java.nio.file.Paths.get
 import java.util.ArrayList
 
 class DashboardRecyclerAdaptor(val context:Context,val itemList : ArrayList<Book>) :
@@ -53,7 +49,9 @@ class DashboardRecyclerAdaptor(val context:Context,val itemList : ArrayList<Book
         Picasso.get().load("Book.bookImage").error(R.drawable.hearder_image)
             .into(holder.imageView)
         holder.layout_single.setOnClickListener {
-            Toast.makeText(context,"clicked on ${holder.textView1.text}",Toast.LENGTH_LONG).show()
+            val intent1 =Intent(context,DescriptionActivity::class.java)
+            intent1.putExtra("book_id", itemList.get(position).bookId)
+            context.startActivity(intent1)
         }
 
 
