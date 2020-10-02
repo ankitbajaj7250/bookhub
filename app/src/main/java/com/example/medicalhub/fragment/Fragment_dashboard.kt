@@ -4,10 +4,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.Toast
@@ -25,6 +23,7 @@ import com.example.medicalhub.adaptor.DashboardRecyclerAdaptor
 import com.example.medicalhub.model.Book
 import com.example.medicalhub.until.ConnectionManager
 import org.json.JSONException
+import java.util.*
 import kotlin.collections.HashMap
 
 // TODO: Rename parameter arguments, choose names that match
@@ -42,7 +41,8 @@ class Fragment_dashboard : Fragment() {
     lateinit var layoutManager: RecyclerView.LayoutManager
     lateinit var progressBar: ProgressBar
     lateinit var progressBarLayout: RelativeLayout
-   var medicalList= arrayListOf<Book>()
+    var medicalList = arrayListOf<Book>()
+    var displayList = arrayListOf<Book>()
     /* val medicalList = arrayListOf<Book>(
     Book("Agwani Medical","Himmaster","9414147250","5.0",R.drawable.hearder_image) ,
          Book("Abhishek Pharma","Nokha ","9636302626","5.0",R.drawable.hearder_image),
@@ -72,20 +72,17 @@ class Fragment_dashboard : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
-      recyclerFragment_dashboard= view.findViewById(R.id.recycle_dashboard)
+        recyclerFragment_dashboard = view.findViewById(R.id.recycle_dashboard)
 
-        layoutManager= LinearLayoutManager(activity)
-        progressBar=view.findViewById(R.id.progressBar)
-        progressBarLayout=view.findViewById(R.id.progressBarLayout)
-        progressBarLayout.visibility=View.VISIBLE
-
-
-        recyclerAdaptor= DashboardRecyclerAdaptor(activity as Context,medicalList)
-
-        recyclerFragment_dashboard.adapter = recyclerAdaptor
-        recyclerFragment_dashboard.layoutManager= layoutManager
+        layoutManager = LinearLayoutManager(activity)
+        progressBar = view.findViewById(R.id.progressBar)
+        progressBarLayout = view.findViewById(R.id.progressBarLayout)
+        progressBarLayout.visibility = View.VISIBLE
         recyclerFragment_dashboard.addItemDecoration(
-            DividerItemDecoration(recyclerFragment_dashboard.context,(layoutManager as LinearLayoutManager).orientation)
+            DividerItemDecoration(
+                recyclerFragment_dashboard.context,
+                (layoutManager as LinearLayoutManager).orientation
+            )
         )
 
         val queue = Volley.newRequestQueue(activity as Context)
@@ -96,36 +93,44 @@ class Fragment_dashboard : Fragment() {
                 Response.Listener {
                     try {
 
-                        progressBarLayout.visibility=View.GONE
+                        progressBarLayout.visibility = View.GONE
                         val success = it.getBoolean("success")
                         if (success) {
                             val data = it.getJSONArray("data")
                             for (i in 0 until data.length()) {
                                 val bookjsonObject = data.getJSONObject(i)
                                 val bookobject = Book(
-                                    bookjsonObject.getString("bookId"),
-                                    bookjsonObject.getString("bookName"),
-                                    bookjsonObject.getString("bookAuthor"),
-                                    bookjsonObject.getString("bookPrice"),
-                                    bookjsonObject.getString("bookRating"),
-                                    bookjsonObject.getString("bookImage")
+                                    bookjsonObject.getString("book_id"),
+                                    bookjsonObject.getString("name"),
+                                    bookjsonObject.getString("author"),
+                                    bookjsonObject.getString("rating"),
+                                    bookjsonObject.getString("price"),
+                                    bookjsonObject.getString("image")
                                 )
                                 medicalList.add(bookobject)
                             }
+                            displayList.addAll(medicalList)
+                            recyclerAdaptor =
+                                DashboardRecyclerAdaptor(activity as Context, medicalList)
+                            recyclerFragment_dashboard.adapter = recyclerAdaptor
+                            recyclerFragment_dashboard.layoutManager = layoutManager
 
                         } else {
-                            Toast.makeText(context, "somthing went wrong", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "something went wrong", Toast.LENGTH_LONG)
+                                .show()
                         }
-                    }
-                    catch (e:JSONException)
-                    {
-                        Toast.makeText(context,"some unexpected error occurred $e ",Toast.LENGTH_LONG).show()
+                    } catch (e: JSONException) {
+                        Toast.makeText(
+                            context,
+                            "some unexpected error occurred $e ",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
 
 
                 },
                 Response.ErrorListener {
-                    Toast.makeText(context, "volly Error occurred", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "volley Error occurred", Toast.LENGTH_LONG).show()
 
                 }) {
                 override fun getHeaders(): MutableMap<String, String> {
@@ -138,25 +143,21 @@ class Fragment_dashboard : Fragment() {
             }
 
             queue.add(jsonObjectRequest)
-        }
-        else
-        {
-            val dialog= AlertDialog.Builder(activity as Context)
+        } else {
+            val dialog = AlertDialog.Builder(activity as Context)
             dialog.setTitle("Network Not Available")
             dialog.setMessage("check your internet connection")
             dialog.setPositiveButton("Open Setting")
-            {
-                text, listener->
-                val settingIntent=Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
+            { text, listener ->
+                val settingIntent = Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
                 startActivity(settingIntent)
                 activity?.finish()
             }
-            dialog.setNegativeButton("close") {
-                text,listener->
+            dialog.setNegativeButton("close") { text, listener ->
                 ActivityCompat.finishAffinity(activity as Activity)
             }
-        dialog.create()
-        dialog.show()
+            dialog.create()
+            dialog.show()
         }
         return view
 
@@ -182,6 +183,7 @@ class Fragment_dashboard : Fragment() {
                 }
             }
     }
+
 }
 
 
