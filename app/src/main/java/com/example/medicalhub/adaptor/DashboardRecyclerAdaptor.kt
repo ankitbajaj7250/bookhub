@@ -46,7 +46,7 @@ class DashboardRecyclerAdaptor(val context:Context,val itemList : ArrayList<Book
         holder.textView2.text= Medical.bookAuthor
         holder.rating.text=Medical.bookRating
         //holder.imageView.setImageResource(Medical.bookImage)
-        Picasso.get().load("Book.bookImage").error(R.drawable.hearder_image)
+        Picasso.get().load(Medical.bookImage).error(R.drawable.hearder_image)
             .into(holder.imageView)
         holder.layout_single.setOnClickListener {
             val intent1 =Intent(context,DescriptionActivity::class.java)
